@@ -9,17 +9,17 @@ contract TestToken{
 
     // STATE VARIABLES 
 
-    uint public totalSupply;
+    uint256 public totalSupply;
     string public nameOfToken;
     string public tokenSymbol;
     //address tokenAddress;
 
-    mapping(address => uint) public balances;
+    mapping(address => uint256) public balances;
 
     // FUNCTIONS
 
     constructor(
-        uint _totalSupply,
+        uint256 _totalSupply,
         string memory _nameOfToken,
         string memory _tokenSymbol
     )
@@ -30,7 +30,7 @@ contract TestToken{
        balances[msg.sender] = totalSupply;
     }
 
-    function transfer(address _to, uint amount)public returns(bool) {
+    function transfer(address _to, uint256 amount)public returns(bool) {
         uint userBal = balances[msg.sender];
         require(amount <= userBal,"Insufficient Balance");
         balances[msg.sender] -= amount;
