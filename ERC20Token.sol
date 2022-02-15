@@ -96,6 +96,5 @@ contract ERC20Token is IERC20Metadata {
        _allowance[from][msg.sender] -= amount;
        _transfer(from, to, amount);
        emit Transfer(msg.sender, to, amount);
-       
     }
 }
