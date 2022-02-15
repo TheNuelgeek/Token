@@ -77,7 +77,7 @@ contract ERC20Token is IERC20Metadata {
         return _allowance[owner][spender];
     }
 
-    // Transfer from
+    
 
     // Approve
     function approve(address spender, uint256 amount) external returns (bool){
@@ -85,7 +85,8 @@ contract ERC20Token is IERC20Metadata {
         emit Approval(msg.sender,spender, amount);
     }
 
-     function transferFrom(
+    // Transfer from
+    function transferFrom(
         address from,
         address to,
         uint256 amount
