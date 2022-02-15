@@ -85,5 +85,16 @@ contract ERC20Token is IERC20Metadata {
         emit Approval(msg.sender,spender, amount);
     }
 
-    
+     function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool)
+    {
+       uint _allowedAmount = allowance(from, msg.sender);
+       require(amount <= _allowedAmount, "You do not have suffcient amount approved");
+       _allowance[from][msg.sender] -= amount;
+       _transfer(from, to, amount);
+       emit Transfer(msg.sender, to, amount);
+    }
 }
