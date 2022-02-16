@@ -31,8 +31,7 @@ contract ERC20Token is IERC20Metadata {
         balances[msg.sender] = _totalSupply;
     }
 
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    
 
     function name() external override view returns (string memory){
         return _tokenName;
@@ -47,7 +46,7 @@ contract ERC20Token is IERC20Metadata {
     }
 
     function totalSupply() external override view returns (uint256){
-        return totalSupply;
+        return _totalSupply;
     }
 
     // Account Balance
@@ -59,30 +58,33 @@ contract ERC20Token is IERC20Metadata {
     // Transfer
     function _transfer(address _from, address _to, uint256 _amount) internal returns(bool){
         require(_amount <= balances[_from], " Insufficient Balance");
-        balance[_from] -= amount;
-        balance[_to] += amount;
-        return true;
+        balances[_from] -= _amount;
+        balances[_to] += _amount;
+        //return true;
 
         emit Transfer(_from, _to, _amount);
+        return true;
     }
 
     function transfer(address to, uint256 amount) external override returns (bool){
         _transfer(msg.sender, to, amount);
 
         emit Transfer(msg.sender, to, amount);
+        return true;
     }
 
     // Allowance
-    function allowance(address owner, address spender) external view returns (uint256){
+    function allowance(address owner, address spender) public view override returns (uint256){
         return _allowance[owner][spender];
     }
 
     
 
     // Approve
-    function approve(address spender, uint256 amount) external returns (bool){
+    function approve(address spender, uint256 amount) external override returns (bool){
         _allowance[msg.sender][spender] = amount;
         emit Approval(msg.sender,spender, amount);
+        return true;
     }
 
     // Transfer from
@@ -90,12 +92,21 @@ contract ERC20Token is IERC20Metadata {
         address from,
         address to,
         uint256 amount
-    ) external returns (bool)
+    ) external override returns (bool)
     {
-       uint _allowedAmount = allowance(from, msg.sender);
+       uint256 _allowedAmount = allowance(from, msg.sender);
        require(amount <= _allowedAmount, "You do not have suffcient amount approved");
        _allowance[from][msg.sender] -= amount;
        _transfer(from, to, amount);
        emit Transfer(msg.sender, to, amount);
+       return true;
     }
 }
+
+// TEST ACCT1 0x793304f421b09D8fDa4225d7AAE33483fDA5406F
+
+// TEST ACCT2 0x7cC71EE395b3ec41F04dCD9b13a079dA859A88a1
+
+// OWNER ACCT 0xC635dC7e540d384876aC4D6178D9971241b8383B
+
+// CONTRACT ADDRESS 0xe2326ce3317ba999b90f3ee2bff526f928a2e672
