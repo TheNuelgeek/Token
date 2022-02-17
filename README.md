@@ -1,4 +1,4 @@
-# Contact Test Token, ERC20Token & ICO
+# Contract Test Token, ERC20Token & ICO
 
 ## About Contracts
 
@@ -9,7 +9,7 @@
 ### ERC20Token
 1. I made use of the ERC20Token standard of creating token
 
-   • Tokens can be transferred by its owner
+   • Tokens can be transferred by their owner
 
    • Tokens can be transferred on behalf of an owner
 
